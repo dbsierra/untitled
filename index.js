@@ -12,9 +12,10 @@ var spd = 9;
 
 export function dsp(t) {
   
-  
   var stp1 = Math.floor(t*spd)%1;
-  var stp2 = Math.floor(t*spd)%1;
+  var stp2 = Math.floor(t*spd)%9;
+  
+  var lfo = Math.min(1, Math.sin(t*205)/2+.8);
   
   var f = notes[stp1];
   var f2 = notes2[stp2] * 2;
@@ -44,7 +45,7 @@ export function dsp(t) {
   
   var env = Math.max(0, 0.9 - ( (t)%(1/spd) * 15) / (( (t)%(1/spd) * 15) + 1));
 
-  var sF = (s1*.2 +sU3*.7 + sU1 * .8 + sU2*1.3 + sin(f,t)*.9) * env; 
+  var sF = (s1*.2 +sU3*.7 + sU1 * .8 + sU2*1.3 + sin(f,t)*.9) * env * lfo; 
   
   return sF;
 }
